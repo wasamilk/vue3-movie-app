@@ -1,6 +1,6 @@
 <template>
   <RouterLink class="logo" to="/">
-    <span>wbMovie</span>.COM
+    <span>Movie</span>.COM
   </RouterLink>
 </template>
 
