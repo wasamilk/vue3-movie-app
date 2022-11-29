@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   name: "Search",
   data() {
@@ -54,9 +53,14 @@ export default {
   // apikey=f50c0fc6
   methods: {
     async apply() {
-      const OMDB_API_KEY = 'f50c0fc6'
-      const response = await axios.get(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${this.title}&type=${this.type}&y=${this.year}&page=1`)
-      console.log(response);
+      // mutations 실행 - .commit()
+      // actions 실행 - .dispatch()
+      this.$store.dispatch('movie/searchMovies', {  //movies는 vuex모듈 이름
+        title: this.title,
+        type: this.type,
+        number: this.number,
+        year: this.year
+      })
     }
   }
 }
