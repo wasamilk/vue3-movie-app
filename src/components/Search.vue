@@ -55,7 +55,7 @@ export default {
     async apply() {
       // mutations 실행 - .commit()
       // actions 실행 - .dispatch()
-      this.$store.dispatch('movie/searchMovies', {  //movies는 vuex모듈 이름
+      this.$store.dispatch('movie/searchMovies', {  //movie는 vuex모듈 이름
         title: this.title,
         type: this.type,
         number: this.number,
