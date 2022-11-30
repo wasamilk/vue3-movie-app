@@ -2,7 +2,6 @@
   <Headline />
   <Search />
   <MovieList />
-  <Footer />
 </template>
 
 <script>
@@ -16,8 +15,7 @@ export default {
   components :{
     Headline,
     Search,
-    MovieList,
-    Footer
+    MovieList
   }
 }
 </script>

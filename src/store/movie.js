@@ -8,7 +8,8 @@ export default {
   state:  () => ({
     movies: [],
     message: 'Search for the movie title!',
-    loading: false
+    loading: false,
+    theMovie: {}
   }),
   // computed
   // getters: {  },
@@ -78,14 +79,40 @@ export default {
           loading: false
         })
       }
+    },
+    async searchMovieWithId({state, commit}, payload) {
+      if (state.loading) {
+        return
+      }
+      commit('updateState', {
+        theMovie: {},
+        loading: true
+      })
+
+      try {
+        const res = await _fetchMovie(payload)
+        commit('updateState', {
+          theMovie: res.data
+        })
+      } catch (error) {
+        commit('updateState', {
+          theMovie: {}
+        })
+      } finally {
+        commit('updateState', {
+          loading: false
+        })
+      }
     }
   }
 }
 // _? - 현재파일 내부에서만 사용된다는 의미로 붙임
 function _fetchMovie(payload) {
-  const { title, type, year, page } = payload
+  const { title, type, year, page, id } = payload
   const OMDB_API_KEY = 'f50c0fc6'
-  const url = `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`
+  const url = id
+      ? `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&i=${id}`
+      : `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`
 
   return new Promise((resolve, reject) => {
     axios.get(url).then((res)=>{
@@ -97,5 +124,4 @@ function _fetchMovie(payload) {
       reject(err.message)
     })
   })
-
 }
